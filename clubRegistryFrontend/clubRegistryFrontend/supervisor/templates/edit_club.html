@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Edit Club{% endblock title %}
+{% block content %}
+  <div class="card">
+    <div class="card-header text-white clubr-color">
+      <h5 style="display: inline">Edit Club</h5>
+    </div>
+    <div class="card-body">
+      {% if message %}
+      <div class="alert alert-danger" role="alert">
+        {{ message }}
+      </div>
+      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        {{ form|crispy  }}
+        <button type="submit" class="btn clubr-color text-white rounded-pill">Submit</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

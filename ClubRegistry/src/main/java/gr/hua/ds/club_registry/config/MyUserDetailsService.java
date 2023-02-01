@@ -40,7 +40,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
 
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), user.getEnabled() == ActivityStatus.ACTIVATED, true, true,
+                user.getUsername(), user.getPassword(), user.getEnabled(), true, true,
                 true,getGrantedAuthorities(user.getUserRole()));
     }
 

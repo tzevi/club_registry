@@ -4,6 +4,7 @@ import gr.hua.ds.club_registry.db.models.Club;
 import gr.hua.ds.club_registry.db.models.User;
 import gr.hua.ds.club_registry.db.repository.ClubRepository;
 import gr.hua.ds.club_registry.db.repository.UserRepository;
+import gr.hua.ds.club_registry.rest.exception.ClubNotFoundException;
 import gr.hua.ds.club_registry.rest.exception.UserNotFoundException;
 import gr.hua.ds.club_registry.service.service.ClubService;
 
@@ -36,34 +37,15 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public List <Club> searchClubByTeamName( String teamName ) {
-        return clubDAO.findByTeamName(teamName);
-    }
-
-    @Override
-    public List <Club> searchBySupervisorName( String supervisorName ) {
-        return clubDAO.findBySuperVisorUsername(supervisorName);
-    }
-
-    @Override
     public Club searchByTaxNo( String taxNo ) {
-        return clubDAO.findByTaxNo(taxNo);
+        return clubDAO.findByTaxNo(taxNo).orElseThrow(() -> new ClubNotFoundException());
     }
 
-    @Override
-    public List <Club> searchByTeamNameAndActiveStatus( String teamName , Boolean active ) {
-        return clubDAO.findByTeamNameAndActive(teamName, active);
-    }
 
     @Override
-    public List <Club> searchBySupervisorAndActiveStatus( String supervisor , Boolean active ) {
+    public Club searchBySupervisorAndActiveStatus( String supervisor , Boolean active ) {
         return clubDAO.findBySuperVisorUsernameAndActive(supervisor, active);
     }
-
-//    @Override
-//    public List <Club> searchByDatePeriod( Date fromDate , Date toDate ) {
-//        return clubDAO.getClubsFromSubmissionPeriod(fromDate, toDate);
-//    }
 
     @Override
     public Club insertClub(Club club ) {
@@ -79,6 +61,8 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public Club updateClub(Club oldClub , Club newClub ) {
+        oldClub.setMembers(newClub.getMembers());
+        oldClub.setTaxNo(newClub.getTaxNo());
         oldClub.setClubName(newClub.getClubName());
         oldClub.setActive(newClub.getActive());
         oldClub.setTeamName(newClub.getTeamName());

@@ -1,0 +1,35 @@
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg d-flex navbar-dark clubr-color text-white "	>
+        <div class="container">
+            
+                Club Registry
+            
+            <div class="navbar-nav ms-auto">
+                {% if not request.COOKIES.user %}
+                    <a href="{% url 'auth:login' %}"
+                            class="nav-link"><i class="fs-5 bi bi-box-arrow-in-right"></i>Login</a>
+                    <a href="{% url 'auth:signup' %}"
+                            class="nav-link"><i class="fs-5 bi bi-person-plus-fill"></i>Signup</a>
+                {% else %}
+                    {% if 'ROLE_ADMIN' in request.COOKIES.user  %}
+                        <a href="{% url 'admin:users' %}"
+                            class="nav-link"><i class="fs-5 bi bi-people"></i>Users</a>
+                    {% elif 'ROLE_CLUB_SUPERVISOR' in request.COOKIES.user %}
+                        <a href="{% url 'supervisor:application' %}"
+                            class="nav-link"><i class="fs-5 bi bi-card-text"></i>My Application</a>
+                        <a href="{% url 'supervisor:club' %}"
+                            class="nav-link"><i class="fs-5 bi bi-award"></i>My Club</a>
+                    {% elif 'ROLE_GGA' in request.COOKIES.user %}
+                        <a href="{% url 'gga:applications' %}"
+                            class="nav-link"><i class="fs-5 bi bi-card-list"></i>Applications</a>
+                    {% else %}
+                    <a href="{% url 'police:shops' %}"
+                            class="nav-link"><i class="fs-5 bi bi-shop"></i>Shops</a>
+                    {% endif %}
+                <a href="{% url 'auth:logout' %}"
+                            class="nav-link"><i class="fs-5 bi bi-box-arrow-in-left"></i>Logout</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+{% endblock %}

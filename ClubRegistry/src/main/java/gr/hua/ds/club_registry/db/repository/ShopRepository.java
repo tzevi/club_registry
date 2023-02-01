@@ -8,7 +8,9 @@ import java.util.List;
 public interface ShopRepository  extends CrudRepository<Shop,Integer> {
     List<Shop> findByActive(boolean active);
 
-    List<Shop> findByClubClubName(String clubName);
+    List<Shop> findByClub_TaxNo(String taxNo);
+
+
 
     List<Shop> findByClubTeamName(String teamName);
 

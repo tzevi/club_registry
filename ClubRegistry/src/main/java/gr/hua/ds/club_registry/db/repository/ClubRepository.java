@@ -4,18 +4,14 @@ import gr.hua.ds.club_registry.db.models.Club;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClubRepository extends CrudRepository<Club,String> {
-    Club findByTaxNo(String tax_no);
+    Optional<Club> findByTaxNo(String tax_no);
 
     List<Club> findByActive(boolean active);
 
-    List<Club> findByTeamName(String teamName);
+    Club findBySuperVisorUsernameAndActive(String username,boolean active);
 
-    List<Club> findBySuperVisorUsername(String username);
-
-    List<Club> findBySuperVisorUsernameAndActive(String username,boolean active);
-
-    List<Club> findByTeamNameAndActive(String teamName,boolean active);
 
 }

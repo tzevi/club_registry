@@ -8,6 +8,9 @@ import gr.hua.ds.club_registry.db.models.Shop;
 import gr.hua.ds.club_registry.db.repository.ShopRepository;
 import gr.hua.ds.club_registry.db.repository.ClubRepository;
 
+import gr.hua.ds.club_registry.rest.exception.ClubNotFoundException;
+import gr.hua.ds.club_registry.rest.exception.ShopsNotFoundException;
+import gr.hua.ds.club_registry.rest.exception.UserNotFoundException;
 import gr.hua.ds.club_registry.service.service.ShopService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,48 +46,18 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List <Shop> findShopsByClubName( String clubName ) {
-        return  shopDAO.findByClubClubName(clubName);
+    public List <Shop> findShopsByClubTaxNo( String taxNo ) {
+        return  shopDAO.findByClub_TaxNo(taxNo);
     }
 
     @Override
-    public List <Shop> findShopsByTeamName( String teamName ) {
-        return shopDAO.findByClubTeamName(teamName);
-    }
-
-    @Override
-    public List <Shop> findShopsByCity( String cityName ) {
-        return shopDAO.findByCity(cityName);
-    }
-
-    @Override
-    public List <Shop> findShopsByCityAndTeamName( String cityName , String teamName ) {
-        return shopDAO.findByCityAndClubTeamName(cityName, teamName);
-    }
-
-    @Override
-    public List <Shop> findShopsByCityAndClubName( String cityName , String clubName ) {
-        return shopDAO.findByCityAndClubClubName(cityName, clubName);
-    }
-
-    @Override
-    public List <Shop> findShopsByTeamNameAndActiveStatus( String teamName , Boolean active ) {
-        return shopDAO.findByClubTeamNameAndActive(teamName, active);
-    }
-
-    @Override
-    public List <Shop> findShopsByClubNameAndActiveStatus( String clubName , Boolean active ) {
-        return shopDAO.findByClubClubNameAndActive(clubName, active);
-    }
-
-    @Override
-    public Optional<Shop> findShop(int shopId ) {
-        return shopDAO.findById(shopId);
+    public Shop findShop(int shopId ) {
+        return shopDAO.findById(shopId).orElseThrow(() -> new ShopsNotFoundException());
     }
 
     @Override
     public Shop insertShop(Shop shop ) {
-        Club club =clubDAO.findByTaxNo(shop.getClubTaxNo());
+        Club club =clubDAO.findByTaxNo(shop.getClubTaxNo()).orElseThrow(() -> new ClubNotFoundException());;
         shop.setClub(club);
         return shopDAO.save(shop);
     }

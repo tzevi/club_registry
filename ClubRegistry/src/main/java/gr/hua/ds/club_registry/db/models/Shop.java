@@ -45,9 +45,9 @@ public class Shop {
     //@NotBlank(message = "Shop Type should be either 'SHOP' or 'ROOM'")
     private ShopType shopType;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name="club_tax_no",referencedColumnName = "tax_no", nullable=false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "club_tax_no",referencedColumnName = "tax_no", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Club club;
 
     @Transient

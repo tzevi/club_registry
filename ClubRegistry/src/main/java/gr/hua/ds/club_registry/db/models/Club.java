@@ -12,7 +12,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -37,11 +41,7 @@ public class Club {
     @Size(min=3, max=80,message = "Available charachter limit is from 3 to 80")
     private String clubName;
 
-    @JsonIgnore
-    @OneToMany(mappedBy="club" ,fetch = FetchType.LAZY)
-    private Set<Shop> shops;
-
-    @Column(name="submission_date")
+    @Column(name="submission_date",nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date  submissionDate;
@@ -54,14 +54,20 @@ public class Club {
     @Size(min=3, max=80)
     private String teamName;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL,
-            mappedBy = "associated_club")
+    @ElementCollection
+    private List<String> members = new ArrayList<String>();
+    @OneToOne(fetch = FetchType.EAGER,cascade =CascadeType.PERSIST ,optional = false,orphanRemoval = false)
     private User superVisor;
     @Transient
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String supervisorUsername;
     public Club() {
 
+    }
+
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime ldt = LocalDateTime.now();
+        this.submissionDate = new Date(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(ldt));
     }
 }

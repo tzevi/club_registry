@@ -2,6 +2,7 @@ package gr.hua.ds.club_registry.db.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gr.hua.ds.club_registry.db.enums.ActivityStatus;
 import gr.hua.ds.club_registry.db.enums.Roles;
@@ -49,14 +50,8 @@ public class User {
         @NotBlank(message = "Password should not be null or empty!")
         private String password;
 
-        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "tax_no_club", referencedColumnName = "tax_no")
-        private Club associated_club;
-
-        @Enumerated(EnumType.STRING)
-        @Column(name = "enabled", columnDefinition = "varchar(32) default 'SHOP'")
-        private ActivityStatus enabled;
+        @Column(name = "enabled", columnDefinition = "boolean default true", nullable = false)
+        private Boolean enabled = true;
 
         @Column(name = "role",nullable = false)
         @Schema(description = "Role should ROLE_GGA, ROLE_ADMIN, ROLE_CLUB_SUPERVISOR, ROLE_POLICE")

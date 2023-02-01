@@ -1,0 +1,114 @@
+.center {
+    margin:0 auto;
+    width:300px;
+  }
+  .big-icon {
+    font-size: 150px;
+  }
+  .nav-item{
+      color: white;
+  }
+  a.nav-link:link{
+      color:#203d2b;
+  }
+  a.nav-link:visited{
+      color:#2b583d;
+  }
+  a.nav-link:hover{
+      color:gray;
+  }
+  .page-link{
+    color:#2b583d;
+  }
+  .btn-outline-success{
+    color: #203d2b;
+    background-color: transparent;
+    background-image: none;
+    border-color: #203d2b;
+  }
+  .btn-outline-success:focus,
+  .btn-outline-success.focus {
+      box-shadow: 0 0 0 .2rem #203d2b;
+  }
+  .btn-outline-success:hover {
+    color: white;
+    background-color: #203d2b;
+    border-color: #203d2b;
+  }
+  .pagination > li > a:focus,
+  .pagination > li > a:hover,
+  .pagination > li > span:focus,
+  .pagination > li > span:hover
+  {
+      color: #2b583d;
+      background-color: #eee;
+      border-color: #ddd;
+  }
+  .pagination > .active > a
+  {
+      color: white;
+      background-color: #2b583d !Important;
+      border: solid 1px #2b583d !Important;
+  }
+  .flag-icon-el{
+    padding-right: 5px;
+    background-image: url(/staticfiles/img/el.png);
+  
+  }
+  
+  .flag li{
+      padding-right: 5px;
+  }
+  .form-select:focus,
+  .form-control:focus {
+    border-color: #2e6945;
+    box-shadow: inset 0 1px 1px rgba(63, 173, 96, 0.705), 0 0 8px rgb(62, 143, 80);
+  }
+  .clubr-color{
+    background-color: #203d2b;
+  }
+  .clubr-text-color{
+    color: #2b583d;
+  }
+  a {
+    color: #2b583d;
+  }
+  .header-color{
+    background-color: #2b583d;
+    color: white;
+  }
+  
+  
+  .accordion-button.collapsed{
+    background:rgb(236, 235, 235);
+  
+  
+  }
+  .accordion-button:not(.collapsed) {
+    background:#689e7e;
+    color: white;
+  
+  }
+  .accordion-button:focus{
+    border-color: #28c464;
+    box-shadow: inset 0 1px 1px rgba(63, 173, 96, 0.705), 0 0 8px rgba(77, 248, 114, 0.6);
+  }
+  
+  .list-group-item.active {
+    background-color: #2b583d;
+    border-color: #2b583d;
+  }
+  .nav-pills .nav-item .nav-link.active {
+    color: white;
+    background-color: #2b583d;
+  
+  }
+  .nav-pills .nav-item .nav-link {
+    color: black;
+  
+  }
+  
+  .hover:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+  }

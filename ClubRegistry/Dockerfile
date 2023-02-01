@@ -1,4 +1,7 @@
-FROM openjdk:11
-ADD target/club_registry-0.0.1-SNAPSHOT.jar club_registry-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java", "-jar","club_registry-0.0.1-SNAPSHOT.jar"]
-EXPOSE 8080
+FROM maven:3.8.2-jdk-11
+
+WORKDIR /club_registry
+COPY . .
+RUN mvn clean install -Dmaven.test.skip=true
+
+CMD mvn spring-boot:run
